@@ -1,0 +1,57 @@
+body { background-color: #222; }
+#content { text-align: center; margin: 0 auto; }
+
+#controls { margin: 5px; }
+#controls .ui-button-text { padding: 0px 2px; font-size: 12px; }
+#controls > div { display: inline-block; }
+#controls #views button { padding-right: 12px; padding-left: 2px; }
+#controls #views .ui-icon { right:-1px; }
+
+#attribution {margin-top:5px}
+#attribution, #attribution a { color: #bbb; font-size: 10px }
+#attribution a { text-decoration: none }
+#attribution a span:hover { text-decoration: underline }
+#attribution img {height: 25px; margin-bottom: -12px; padding-left: 5px}
+
+#views ul { font-size: .8em; position: absolute; z-index: 1000; list-style-type: none; background-color: #eee; margin: 0px; padding: 5px 0px; margin-left: 5px; border-radius: 3px; display: none }
+#views:hover ul { display: block }
+#views li { text-align: left; padding: 0px 5px; }
+#views li:hover { background-color: #ccc }
+#views a { color: #333; text-decoration: none }
+#views a:hover { text-decoration: underline }
+
+#phone { display: inline-block; text-align: left; position: relative;}
+
+#phone.android { padding-top: 0px; padding-left: 0px; }
+#phone.android.portrait { 
+    width: 368px; height: 674px; 
+    background-image:url('images/thunderbolt-stencil.png');
+}
+#phone.android.landscape { 
+    height: 368px; width: 674px; 
+    background-image:url('images/thunderbolt-stencil-landscape.png');
+}
+
+/* #phone.android .actions a { border: 1px solid red; } */
+
+#phone.android.portrait iframe { width: 320px; height: 508px; margin-top: 94px; margin-left: 25px;}
+#phone.android.portrait .actions { width: 320px; height: 20px; left: 25px; position: absolute; }
+#phone.android.portrait .actions .back { width: 24px; height: 20px; display: block; left: 184px; position: absolute;}
+
+#phone.android.landscape iframe { width: 533px; height: 295px; margin-top: 46px; margin-left: 68px}
+#phone.android.landscape .actions { width: 20px; height: 320px; left: 603px; top: 21px; position: absolute; }
+#phone.android.landscape .actions .back { width: 24px; height: 20px; display: block; left: 0px; top: 112px; position: absolute;}
+
+#phone.iphone.portrait {
+    width: 383px; height: 747px;
+    background-image:url('images/iphone4-stencil-portrait.png');
+}
+#phone.iphone.portrait iframe { width: 320px; height: 460px; margin-top: 153px; margin-left: 33px;}
+
+#phone.iphone.landscape {
+    height: 383px; width: 747px;
+    background-image:url('images/iphone4-stencil-landscape.png');
+}
+#phone.iphone.landscape iframe { width: 480px; height: 300px; margin-top: 50px; margin-left: 133px;}
+
+.rotate-90-left { -webkit-transform:rotate(-90deg) }

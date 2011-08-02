@@ -1,0 +1,141 @@
+<html>
+
+<head>
+	<title>AppCloud application emulator</title>
+    <link rel="stylesheet" href="emu.css" />
+    <link type="text/css" href="smoothness/jquery-ui-1.8.14.custom.css" rel="stylesheet" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
+function frameChanged() {
+	var contentWindow = bc = $('#phone iframe').get(0).contentWindow;
+	bc = contentWindow.bc;
+	$$ = contentWindow.$;	// save off the other jquery so we can use it
+}
+
+function changeView(uri) {
+	// TODO handle reloading the current page?
+	$('#phone iframe').attr('src', '../' + uri);
+}
+
+$(function() {
+	var triggerSwipe, updateDisplay;
+
+	$.get('../manifest.xml', function(xml) {
+		var ul = $('#views ul');
+		ul.html('');
+
+		$(xml).find('view').each(function() {
+			var uri = $(this).find('uri').text(),
+				label = $(this).find('navigationTitle').text(),
+				icon = $(this).find('navigationIcon').text();
+
+			// todo include icon
+			ul.append('<li><a href="#" onclick="changeView(\'' + uri + '\'); return false;">' + (icon ? '<img src="../'+icon+'" title="'+label+'" />' : '<span>'+label+'</span>') + '</a></li>');
+		});
+
+		$('#views').show();
+	});
+
+	$(".button").button();
+	$(".radioset").buttonset();
+	$("#selectView").button({ icons: {secondary:'ui-icon-triangle-1-s'} });
+
+	// event handlers
+	$('#phone .actions .back').click(function() {
+		bc.ui.backPage();
+	});
+
+	// triggers display updates (such as orientation after display changes)
+	updateDisplay = function() {
+		// if you don't change the orientation you have to trigger the event yourself
+		// we'll force the orientation to be changed
+		if (typeof bc != 'undefined') bc.context.viewOrientation = null;
+		$( $('#phone iframe').get(0).contentWindow ).trigger('resize');
+	};
+
+	$('#orientation input').change(function() {
+		var portrait = $('#portrait').get(0).checked;
+
+		$('#phone').removeClass(portrait ? 'landscape' : 'portrait')
+			.addClass(portrait ? 'portrait' : 'landscape');
+
+		updateDisplay();
+	});
+
+	$('#device input').change(function() {
+		var iphone = $('#iphone').get(0).checked;
+
+		$('#phone').removeClass(iphone ? 'android' : 'iphone')
+			.addClass(iphone ? 'iphone' : 'android');
+
+		updateDisplay();
+	});
+
+	// defaults
+	$('#portrait').get(0).checked = true;
+	$('#portrait').trigger('change');
+
+	$('#iphone').get(0).checked = true;
+	$('#iphone').trigger('change');
+
+	triggerSwipe = function(direction) {
+		var current = bc.ui.currentPage;
+		if (!current) return;
+		$$(current).trigger('swipe', direction);
+	};
+
+	$('#swipeLeft').click(function() { triggerSwipe('swipeLeft'); });
+	$('#swipeRight').click(function() { triggerSwipe('swipeRight'); });
+});
+    </script>
+</head>
+
+<body>
+<div id="content">
+
+<div id="controls">
+	<div id="orientation" class="radioset">
+		<input type="radio" id="portrait" name="orientation" /><label for="portrait"><img src="images/iphone-portait.png" /></label>
+		<input type="radio" id="landscape" name="orientation" /><label for="landscape"><img src="images/iphone-portait.png" class="rotate-90-left" /></label>
+	</div>
+
+	<div id="device" class="radioset">
+		<input type="radio" id="iphone" name="device" /><label for="iphone"><img src="images/iphone-icon.png" /></label>
+		<input type="radio" id="android" name="device" /><label for="android"><img src="images/android-icon.png" /></label>
+	</div>
+
+	<div id="miniControls">
+		<div id="views" style="display: none;">
+			<button id="selectView">Views</button>
+			<ul>
+			</ul>
+		</div>
+
+		<div id="swipes">
+			<button id="swipeLeft" class="button ui-icon ui-icon-arrowreturnthick-1-w" title="Swipe Left" />
+			<button id="swipeRight" class="button ui-icon ui-icon-arrowreturnthick-1-e" title="Swipe Right" />
+		</div>
+
+	</div>
+</div>
+
+<div id="phoneWrapper">
+	<div id="phone">
+		<iframe src="../html/home.html" frameborder="0" onload="frameChanged();"></iframe>
+		<div class="actions">
+			<a class="back" onclick="return false;" href="#"><span></span></a>
+		</div>
+	</div>
+</div>
+
+<div id="attribution">
+	&copy; 2011 Created by <a href="http://cantina.co" target="_blank"><span>Cantina Consulting</span> <img src="images/cantina-logo.png" /></a>
+</div>
+
+</div>
+</body>
+
+
+</html>
