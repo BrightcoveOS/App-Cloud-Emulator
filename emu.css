@@ -1,7 +1,7 @@
-body { background-color: #222; }
+body { background-color: #222; font-family: Helvetica, Arial, sans-serif; padding: 5px; }
 #content { text-align: center; margin: 0 auto; }
 
-#controls { margin: 5px; }
+#controls { margin: 5px 0 15px 0; }
 #controls .ui-button-text { padding: 0px 2px; font-size: 12px; }
 #controls > div { display: inline-block; }
 #controls #views button { padding-right: 12px; padding-left: 2px; }
@@ -13,7 +13,7 @@ body { background-color: #222; }
 #attribution a span:hover { text-decoration: underline }
 #attribution img {height: 25px; margin-bottom: -12px; padding-left: 5px}
 
-#views ul { font-size: .8em; position: absolute; z-index: 1000; list-style-type: none; background-color: #eee; margin: 0px; padding: 5px 0px; margin-left: 5px; border-radius: 3px; display: none }
+#views ul { font-size: .8em; position: absolute; z-index: 1000; list-style-type: none; background-color: #999; margin: 0px; padding: 5px 0px; margin-left: 5px; border-radius: 3px; display: none }
 #views:hover ul { display: block }
 #views li { text-align: left; padding: 0px 5px; }
 #views li:hover { background-color: #ccc }
