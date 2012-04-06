@@ -27,25 +27,9 @@ Note that many (read: all) apps need to be able to make AJAX requests cross-doma
 
     $ /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security
 
-## Tips
-
 ### Access to the Brightcove API
 
 The 'bc' object in the frame is made available in the outer frame. Try it out in the JavaScript console in your browser:
 
     bc.ui.width()
 
-### Better browser support in your app
-
-While this should be improving in the core API over time, you are always free to override the API when working in-browser to make life easier for yourself:
-
-
-	if (!bc.device.isNative()) {
-		bc.device.getLocation = function(success, error) {
-			success({"latitude":'42.330454', "longitude":'-71.193073'});
-		};
-
-		bc.device.alert = function(message, success, error) { alert(message); };
-
-		bc.device.setAutoRotateDirections = function( directions, successCallback, errorCallback ) {};
-	}
